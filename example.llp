@@ -1,0 +1,27 @@
+praecepta salve_munde(){
+	nuntia "Salve Munde!";
+}
+
+datum a est 5;
+datum b est 7;
+
+datum c est $a summa $b;
+
+salve_munde
+
+si $c est 12 age
+	nuntia "c est XII";
+aliter
+	nuntia "c non est XII";
+conclude si
+
+si $c est maior quam 10 age
+	nuntia "c magnum datum est, maior quam 10";
+conclude si
+
+percipe nomen;
+nuntia "Tibi nomen $nomen est";
+
+itera i ab 1 ad 5
+	nuntia "$i";
+conclude iteratio 

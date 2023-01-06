@@ -1,0 +1,5 @@
+percipe nomen
+percipe numero
+itera i intra ab 1 ad $numero age
+nuntia "Mihi nomen est $nomen"
+conclude iteratio
