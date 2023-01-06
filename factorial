@@ -1,0 +1,21 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use 5.36.0;
+sub factorialis{
+    my $n = $_[0];
+
+    if($n == 0 ){
+        return 1;
+    }elsif($n == 1 ){
+        return 1;
+    }
+    
+    return $n * factorialis($n - 1);
+}
+
+my $num = <STDIN>; chomp($num);
+#datum num est 5;
+my $exitus = factorialis($num);
+
+print ": $exitus\n";

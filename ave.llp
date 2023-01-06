@@ -1,5 +1,5 @@
-percipe nomen
-percipe numero
-itera i intra ab 1 ad $numero age
-nuntia "Mihi nomen est $nomen"
+percipe nomen;
+percipe numero;
+itera $i ab 1 ad $numero
+    nuntia "Tibi nomen est $nomen\n";
 conclude iteratio

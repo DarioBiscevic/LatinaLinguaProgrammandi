@@ -1,0 +1,17 @@
+praecepta factorialis{
+    datum n est Variabilis0;
+
+    si $n est 0 age
+        redde 1;
+    aliter si $n est 1 age
+        redde 1;
+    conclude si
+    
+    redde $n * factorialis($n - 1);
+}
+
+percipe num;
+#datum num est 5;
+datum exitus est factorialis($num);
+
+nuntia ": $exitus\n";
