@@ -20,40 +20,42 @@ rotodec(){
 
 filename=$2
 
-echo "#!/bin/bash" > $filename
+echo "#!/usr/bin/perl" > $filename
+echo "use strict;" >> $filename
+echo "use warnings;" >> $filename
 
 # Variables
-printf "%s" "$(cat $1 | sed "s/^\s*datum\s*\([a-zA-Z0-9]*\)\s*est\s*\"\(.*\)\"/\1=\"\2\"/g")" >> $filename
-printf "%s" "$(cat $filename | sed "s/^\s*datum\s*\([a-zA-Z0-9]*\)\s*est\s*\(.*\)/\1=\2/g")" > $filename
+printf "%s" "$(cat $1 | sed "s/^\s*datum\s*\([a-zA-Z0-9]*\)\s*est\s*\"\(.*\)\"/my \1=\"\2\"/g")" >> $filename
+printf "%s" "$(cat $filename | sed "s/^\s*datum\s*\([a-zA-Z0-9]*\)\s*est\s*\(.*\)/my \$\1 = \2/g")" > $filename
 
 # if statements
-printf "%s" "$(cat $filename | sed "s/^\s*si\s*\(\$[a-zA-Z]*\)\(.*\)age/if \[ \1\2\]; then/g")" > $filename
-printf "%s" "$(cat $filename | sed "s/\(.*\[.*\)est maior aut aequum quam\(.*\].*\)/\1\-ge\2/g")" > $filename
-printf "%s" "$(cat $filename | sed "s/\(.*\[.*\)est minor aut aequum quam\(.*\].*\)/\1\-e\2/g")" > $filename
-printf "%s" "$(cat $filename | sed "s/\(.*\[.*\)est maior quam\(.*\].*\)/\1\-gt\2/g")" > $filename
-printf "%s" "$(cat $filename | sed "s/\(.*\[.*\)est minor quam\(.*\].*\)/\1\-lt\2/g")" > $filename
-printf "%s" "$(cat $filename | sed "s/\(.*\[.*\)est scriptura\(.*\].*\)/\1=\2/g")" > $filename
-printf "%s" "$(cat $filename | sed "s/\(.*\[.*\)est\(.*\].*\)/\1-eq\2/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/^\s*si\s*\([\$a-zA-Z0-9]*\)\(.*\)\s*age/if(\1\2\){/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/\(.*(.*\)est maior aut aequum quam\(.*).*\)/\1\>=\2/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/\(.*(.*\)est minor aut aequum quam\(.*).*\)/\1\<=\2/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/\(.*(.*\)est maior quam\(.*).*\)/\1\>\2/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/\(.*(.*\)est minor quam\(.*).*\)/\1\<\2/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/\(.*(.*\)est scriptura\(.*).*\)/\1==\2/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/\(.*(.*\)est\(.*).*\)/\1==\2/g")" > $filename
 
-# echos
-printf "%s" "$(cat $filename | sed "s/^\(\s*\)nuntia/\1echo/g")" > $filename
+# print
+printf "%s" "$(cat $filename | sed "s/^\(\s*\)nuntia/\1print/g")" > $filename
 
 # reads
-printf "%s" "$(cat $filename | sed "s/^\(\s*\)percipe/\1read/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/^\(\s*\)percipe\s*\([^;]*\)/\1my \$\2 = <STDIN>; chomp(\$\2)/g")" > $filename
 
 # block endings
-printf "%s" "$(cat $filename | sed "s/^\s*conclude si/fi/g")" > $filename
-printf "%s" "$(cat $filename | sed "s/^\s*aliter si\(.*\)/elif \1/g")" > $filename
-printf "%s" "$(cat $filename | sed "s/^\s*aliter/else/g")" > $filename
-printf "%s" "$(cat $filename | sed "s/^\s*conclude iteratio/done\n/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/^\s*conclude si/}/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/^\s*aliter si\(.*\)/}else if \1/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/^\s*aliter/}else{/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/^\s*conclude iteratio/}\n/g")" > $filename
 
 # for
-printf "%s" "$(cat $filename | sed "s/^\s*itera\s*\([a-zA-Z0-9]*\)\s*ab\s*\([\$a-zA-Z0-9]*\)\s*ad\s*\([\$a-zA-Z0-9]*\)/for ((\1 = \2; i <= \3; \1++)); do/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/^\s*itera\s*\([\$a-zA-Z0-9]*\)\s*ab\s*\([\$a-zA-Z0-9]*\)\s*ad\s*\([\$a-zA-Z0-9]*\)/for (my \1 = \2; \1 <= \3; \1++){/g")" > $filename
 
 # sum
-printf "%s" "$(cat $filename | sed "s/\([\$a-zA-Z0-9]*\)\s*summa\s*\([\$a-zA-Z0-9]*\)/\$(expr \1 + \2)/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/\([\$a-zA-Z0-9]*\)\s*summa\s*\([\$a-zA-Z0-9]*\)/\1 + \2/g")" > $filename
 
 # functions
-printf "%s" "$(cat $filename | sed "s/\s*praecepta\s*\([a-zA-Z0-9]*\)/\1/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/\s*praecepta\s*\([a-zA-Z0-9]*\)/sub \1/g")" > $filename
 
 chmod +x $filename

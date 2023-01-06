@@ -1,5 +1,5 @@
-praecepta salve_munde(){
-	nuntia "Salve Munde!";
+praecepta salve_munde{
+	nuntia "Salve Munde!\n";
 }
 
 datum a est 5;
@@ -7,21 +7,21 @@ datum b est 7;
 
 datum c est $a summa $b;
 
-salve_munde
+salve_munde();
 
 si $c est 12 age
-	nuntia "c est XII";
+	nuntia "c est XII\n";
 aliter
-	nuntia "c non est XII";
+	nuntia "c non est XII\n";
 conclude si
 
 si $c est maior quam 10 age
-	nuntia "c magnum datum est, maior quam 10";
+	nuntia "c magnum datum est, maior quam 10\n";
 conclude si
 
 percipe nomen;
-nuntia "Tibi nomen $nomen est";
+nuntia "Tibi nomen $nomen est\n";
 
-itera i ab 1 ad 5
-	nuntia "$i";
+itera $i ab 1 ad 5
+	nuntia "$i\n";
 conclude iteratio 

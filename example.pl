@@ -1,0 +1,31 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+sub salve_munde{
+	print "Salve Munde!\n";
+}
+
+my $a = 5;
+my $b = 7;
+
+my $c = $a + $b;
+
+salve_munde();
+
+if($c == 12 ){
+	print "c est XII\n";
+}else{
+	print "c non est XII\n";
+}
+
+if($c > 10 ){
+	print "c magnum datum est, maior quam 10\n";
+}
+
+my $nomen = <STDIN>; chomp($nomen);
+print "Tibi nomen $nomen est\n";
+
+for (my $i = 1; $i <= 5; $i++){
+	print "$i\n";
+}
+ 
