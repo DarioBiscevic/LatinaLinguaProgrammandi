@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+use 5.36.0;
 sub salve_munde{
 	print "Salve Munde!\n";
 }
@@ -28,4 +29,3 @@ print "Tibi nomen $nomen est\n";
 for (my $i = 1; $i <= 5; $i++){
 	print "$i\n";
 }
- 

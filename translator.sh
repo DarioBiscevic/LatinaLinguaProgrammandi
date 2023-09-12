@@ -1,23 +1,5 @@
 #!/bin/bash
 
-rotodec(){
-    echo ${1} |
-    sed 's/CM/DCD/g' |
-    sed 's/M/DD/g' |
-    sed 's/CD/CCCC/g' |
-    sed 's/D/CCCCC/g' |
-    sed 's/XC/LXL/g' |
-    sed 's/C/LL/g' |
-    sed 's/XL/XXXX/g' |
-    sed 's/L/XXXXX/g' |
-    sed 's/IX/VIV/g' |
-    sed 's/X/VV/g' |
-    sed 's/IV/IIII/g' |
-    sed 's/V/IIIII/g' |
-    tr -d '\n' |
-    wc -m
-}
-
 filename=$2
 
 echo "#!/usr/bin/perl" > $filename
@@ -48,7 +30,7 @@ printf "%s" "$(cat $filename | sed "s/^\(\s*\)percipe\s*\([^;]*\)/\1my \$\2 = <S
 # block endings
 printf "%s" "$(cat $filename | sed "s/^\(\s*\)conclude si/\1}/g")" > $filename
 printf "%s" "$(cat $filename | sed "s/^\(\s*\)aliter age/\1}else{/g")" > $filename
-printf "%s" "$(cat $filename | sed "s/^\(\s*\)conclude iteratio/\1}\n/g")" > $filename
+printf "%s" "$(cat $filename | sed "s/^\(\s*\)conclude iterationem/\1}\n/g")" > $filename
 
 # for
 printf "%s" "$(cat $filename | sed "s/^\s*itera\s*\([\$a-zA-Z0-9]*\)\s*ab\s*\([\$a-zA-Z0-9]*\)\s*ad\s*\([\$a-zA-Z0-9]*\)/for (my \1 = \2; \1 <= \3; \1++){/g")" > $filename

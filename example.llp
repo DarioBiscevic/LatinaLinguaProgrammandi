@@ -24,4 +24,4 @@ nuntia "Tibi nomen $nomen est\n";
 
 itera $i ab 1 ad 5
 	nuntia "$i\n";
-conclude iteratio 
+conclude iterationem
