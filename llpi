@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+filename="$(dd if=/dev/urandom bs=8 count=1 2>/dev/null | base64 | sed "s/\//_/g")"
+
+./translator.sh $1 /tmp/$filename
+
+/tmp/${filename}
+
+rm "/tmp/$filename"

@@ -1,9 +1,0 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
-use 5.36.0;
-my $nomen = <STDIN>; chomp($nomen);
-my $numero = <STDIN>; chomp($numero);
-for (my $i = 1; $i <= $numero; $i++){
-    print "Tibi nomen est $nomen\n";
-}

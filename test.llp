@@ -1,0 +1,7 @@
+datum a est MMXXIV;
+datum b est MMIII;
+nuntia $a;
+nuntia "\n";
+nuntia $b;
+nuntia "\n";
+nuntia $a - $b;

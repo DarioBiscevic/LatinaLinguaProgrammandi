@@ -1,5 +1,5 @@
 percipe nomen;
 percipe numero;
-itera $i ab 1 ad $numero
+itera $i ab I ad $numero
     nuntia "Tibi nomen est $nomen\n";
-conclude iteratio
+conclude iterationem

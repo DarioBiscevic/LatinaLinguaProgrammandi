@@ -11,6 +11,26 @@ echo "use 5.36.0;" >> $filename
 printf "%s" "$(cat $1 | sed "s/^\(\s*\)datum\s*\([a-zA-Z0-9]*\)\s*est\s*\"\(.*\)\"/\1my \2=\"\3\"/g")" >> $filename
 printf "%s" "$(cat $filename | sed "s/^\(\s*\)datum\s*\([a-zA-Z0-9]*\)\s*est\s*\(.*\)/\1my \$\2 = \3/g")" > $filename
 
+printf "%s" "$(cat $filename | sed "s/Variabilis\([0-9]\)*/\$_\[\1\]/g")" > $filename
+
+# Roman numerals
+#printf "%s" "$(cat $filename | sed -r "s/^(.*)([IVXCLDM]+)([\s|;]*)/\1$(./roman_to_decimal.sh \2) \3/g")" > $filename
+
+# printf "%s" "$(cat $filename | sed -r "s/([IVXLCDM]+)/(\1)/g")" > $filename
+printf "%s" "$(cat $filename |
+    sed 's/CM/DCD/g' |
+    sed 's/M/DD/g' |
+    sed 's/CD/CCCC/g' |
+    sed 's/D/CCCCC/g' |
+    sed 's/XC/LXL/g' |
+    sed 's/C/LL/g' |
+    sed 's/XL/XXXX/g' |
+    sed 's/L/XXXXX/g' |
+    sed 's/IX/VIV/g' |
+    sed 's/X/VV/g' |
+    sed 's/IV/IIII/g' |
+    sed 's/V/IIIII/g' | sed 's/I/1+/g' | sed 's/\([1|+]*\)+\(.*\)/\1\2/g')" > $filename
+
 # if statements
 printf "%s" "$(cat $filename | sed "s/^\(\s*\)si\s*\([\$a-zA-Z0-9]*\)\(.*\)\s*age/\1if(\2\3\){/g")" > $filename
 printf "%s" "$(cat $filename | sed "s/^\(\s*\)aliter si\s*\([\$a-zA-Z0-9]*\)\(.*\)\s*age\(.*\)/\1}elsif(\2\3){/g")" > $filename
@@ -42,6 +62,5 @@ printf "%s" "$(cat $filename | sed "s/\([\$a-zA-Z0-9]*\)\s*summa\s*\([\$a-zA-Z0-
 printf "%s" "$(cat $filename | sed "s/\s*praecepta\s*\([a-zA-Z0-9]*\)/sub \1/g")" > $filename
 printf "%s" "$(cat $filename | sed "s/\(\s*\)redde\(.*\)/\1return\2/g")" > $filename
 
-printf "%s" "$(cat $filename | sed "s/Variabilis\([0-9]\)*/\$_\[\1\]/g")" > $filename
 
 chmod +x $filename

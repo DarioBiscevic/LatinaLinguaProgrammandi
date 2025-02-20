@@ -10,8 +10,8 @@ praecepta factorialis{
     redde $n * factorialis($n - 1);
 }
 
-percipe num;
-#datum num est 5;
+#percipe num;
+datum num est V*V;
 datum exitus est factorialis($num);
 
 nuntia ": $exitus\n";
